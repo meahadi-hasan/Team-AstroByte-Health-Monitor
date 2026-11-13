@@ -1,61 +1,84 @@
 # AstroByte Health Monitor
 
-Team AstroByte’s NASA Space Apps Challenge 2026 entry for Rajshahi. The app helps a crew member or reviewer log a simulated health observation, understand the alert it triggers, and record a follow-up after reviewing historical ISS radiation measurements. The animated globe on the home page previews the same synthetic scenarios used in the demo.
+**Final local submission · NASA Space Apps Challenge 2026**  
+**Challenge** · Create Health Monitoring Software for Astronauts on Space Missions  
+**Team** · Team AstroByte, Rajshahi, Bangladesh 
+
+[Watch the final judging video (3:49)](https://youtu.be/dbgMfhto2KM)
+
+## Project overview
+
+AstroByte Health Monitor helps astronaut crews and reviewers record health observations, understand why an alert fired, and document what to verify next during long-duration missions. The application shows which readings triggered each rule and lets a reviewer attach historical ISS radiation measurements from NASA OSDR RadLab to a follow-up note.
+
+## What you can try
+
+| Public judging demo | Full crew workspace |
+| --- | --- |
+| Enter simulated heart rate, oxygen saturation (SpO₂), temperature, sleep duration, and fatigue readings, or choose a scenario preset. | Sign in as an administrator, reviewer, or crew member to access the records and actions permitted for that role. |
+| Review individual and combined rule-based alerts and the readings that triggered them. | Log observations, view trends, review and resolve alerts, record follow-ups, and view a rule-based shift handover. |
+| Compare historical ISS radiation readings by detector and attach the reference to a follow-up note. | Query NASA RadLab and save observations, alert history, and follow-ups in SQLite. |
+| Export the current session as JSON. Reloading the page resets the session. | Manage missions, crew assignments, and accounts. Authorized users can access the audit log. |
 
 ## Run locally
 
-Install Node.js 24 or newer, extract the ZIP, and open a terminal in the folder that contains `package.json`. The application has no npm dependencies to install.
+Install **Node.js 24 or later**, then open a terminal in the folder containing `package.json`. The project uses HTML, CSS, JavaScript, Node.js, and Node.js's built-in SQLite module. It has no npm dependencies to install.
 
 ```sh
 npm run dev
 ```
 
-Open <http://127.0.0.1:3000>. **Try Demo** opens a browser session with fictional crew readings. **Crew Sign In → Open local training admin** opens a separate SQLite training workspace for testing crew records, roles, and audit history.
+Open [http://127.0.0.1:3000](http://127.0.0.1:3000).
 
-## Run the judging demo
+- **Explore the demo** opens the public workflow without an account.
+- **Crew Sign In → Open local training admin** opens the local training workspace with fictional crew records. The app creates the training database on startup. For hosted crew accounts and persistent storage, see the [deployment guide](docs/DEPLOYMENT_GUIDE.md).
 
-1. Choose **Multi-signal** and select **Save observation**. The demo selects the combined alert if one fires.
-2. Review the listed triggers, then select **Load NASA reference**. Compare the detector peaks and medians, and inspect the time window, units, and source.
-3. Add a follow-up note, check **Attach NASA reference to this note**, and select **Save follow-up**. Expand the attached reference in Review history.
-4. **Export session** saves the synthetic observations, flags, notes, and evidence as JSON. **Reset demo** clears the session and loads the default preset.
+## Walk through the judging demo
 
-The public demo stores entries in the current page session and resets on reload. The static release uses a labeled snapshot retrieved from NASA RadLab. The Node release queries NASA on the server and falls back to cached data or the packaged snapshot. The separate crew workspace stores authorized observations, alerts, and follow-ups in SQLite. The workspace's Overview includes a local rule-based Shift handover. Optional OpenAI prioritization requires an operator key and is limited to synthetic observations.
+1. Select **Explore the demo → Multi-signal → Save observation**.
+2. Review the combined alert and the readings that triggered it.
+3. Select **Load NASA reference**. Compare the two detectors' median and peak dose rates, then check the time window and data source.
+4. Enter a follow-up note, tick **Attach NASA reference to this note**, and select **Save follow-up**.
+5. Open **Attached NASA reference** under **Review history**, or select **Export session** to save a JSON copy.
 
-## Build and verify
+## NASA data and provenance
+
+The radiation reference contains **180 historical ISS measurements** from **DosTel1** and **DosTel2**, from **1 April 2022 at 23:00 UTC** to **2 April 2022 at 01:05 UTC**, exclusive. The interface reports absorbed dose rates in **µGy/h** and preserves the detector, time window, and source.
+
+- **Public Vercel demo** uses a labeled snapshot captured from NASA RadLab.
+- **Full Node.js workspace** can query NASA RadLab and use a labeled cache or packaged snapshot when applicable.
+- **Crew alerts** use the health readings. In the judging demo those readings are simulated. The RadLab data provides environmental context alongside the alert.
+
+[NASA RadLab Data API](https://visualization.osdr.nasa.gov/radlab/gui/data-api/) · [Dataset and asset attribution](docs/NASA_DATA_SOURCES.md)
+
+## Test and build
 
 ```sh
 npm test
 npm run check
 npm run build
 npm run build:judge
-node scripts/verify-nasa.mjs
 ```
 
-`dist/` is the full Node application release. `judge-dist/` is the standalone public demo for an HTTPS static host. Both builds use the same demonstration rules.
+`npm run build` assembles the full Node.js release in `dist/`. The repository's Vercel configuration runs `npm run build:judge` and serves the account-free demo from `judge-dist/`. The full crew workspace uses a Node.js host with persistent storage.
 
-## Publish the submission
+To verify a direct RadLab request when the service is reachable, run `node scripts/verify-nasa.mjs`. See the [test results](docs/TEST_RESULTS.md) and [architecture](docs/ARCHITECTURE.md).
 
-Put the files from a fresh extraction at the root of a public GitHub repository, including `.gitignore` and `vercel.json`. Use the public repository URL for the source-code field of the submission.
+## AI use and validation
 
-To publish the optional demo, import that repository into a new Vercel project. Keep the root directory at the folder with `vercel.json`. That file sets the build command and output directory. Open the deployed home page and select **Try Demo**. Add the deployed URL to the repository's **About → Website** field.
+OpenAI Codex assisted with implementation, testing, documentation, and demo narration scripting. Health alerts and the default shift handover use deterministic rules. The full workspace can optionally ask OpenAI to prioritize rule-generated findings from synthetic observations when an operator configures a server-side API key. See [AI usage](docs/AI_USAGE.md).
 
-Use the full Node app for crew accounts and persistent SQLite records. For role setup and persistent HTTPS deployment, see [Deployment guide](docs/DEPLOYMENT_GUIDE.md).
-
-- [NASA data and image credits](docs/NASA_DATA_SOURCES.md)
-- [AI usage](docs/AI_USAGE.md)
-- [Verification](docs/TEST_RESULTS.md)
-- [Rajshahi submission text and video workflow](docs/SUBMISSION.md)
-
-All demonstration rule ranges are illustrative. Historical RadLab measurements describe the detector environment within the chosen ISS window. AstroByte records the reference alongside a simulated alert so reviewers can discuss the signals and context together.
+This hackathon application demonstrates an alert review workflow. Its health thresholds are illustrative and require validation against appropriate mission data before use in operational or clinical decisions.
 
 ## Team AstroByte
 
 | Member | Role |
-|---|---|
-| Md. Meahadi Hasan | Team Leader, AI and Full-Stack Developer |
+| --- | --- |
+| Md. Meahadi Hasan | Team Leader, AI & Full-Stack Developer |
 | Md. Shakil Ahmmed Moni | Frontend Developer |
 | Suraiya Akter | Researcher |
 | Md. Sohanur Rahman | Designer |
-| Khandakar Jarin Shova | Documentation and Script Writer |
+| Khandakar Jarin Shova | Documentation & Script Writer |
 
-Application code is MIT licensed. This is an independent team project. Crew sign-in photo credit to NASA.
+## License
+
+Application code is available under the [MIT License](LICENSE). AstroByte Health Monitor is an independent Team AstroByte project. NASA RadLab and NASA imagery are credited in the [data sources and attribution notes](docs/NASA_DATA_SOURCES.md).
