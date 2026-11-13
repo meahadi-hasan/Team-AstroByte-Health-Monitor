@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1017">
+  <title>Judging Demo | AstroByte Health Monitor</title>
+  <link rel="icon" href="/mark.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/demo.js"></script>
+</head>
+<body class="public-site" data-radiation-endpoint="/api/demo/radiation">
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="public-header">
+    <a class="brand" href="/"><img src="/mark.svg" alt="" width="43" height="43"><span>AstroByte<small>HEALTH MONITOR</small></span></a>
+    <nav aria-label="Demo navigation"><a href="/">Project home</a><a class="button crew-link" href="/workspace.html">Crew Sign In</a></nav>
+  </header>
+  <main id="main" class="public-main demo-main">
+    <header class="demo-intro">
+      <div><p class="kicker">PUBLIC JUDGING DEMO</p><h1>Crew alert review</h1>
+      <p class="lead">Test a simulated observation, review the alert, and save a follow-up with historical ISS radiation evidence.</p></div>
+      <div class="actions"><button id="export-demo" type="button" class="secondary" disabled>Export session</button><button id="reset-demo" type="button" class="secondary">Reset demo</button></div>
+    </header>
+    <p id="demo-status" class="demo-status" role="status">Enter values or choose a scenario to begin. Changes stay in this page session.</p>
+    <div class="demo-grid">
+      <section class="panel demo-panel" aria-labelledby="observation-title">
+        <h2 id="observation-title">Simulated observation</h2>
+        <p class="muted">Fictional crew member · Maya Chen</p>
+        <div class="actions scenarios" aria-label="Scenario presets">
+          <button type="button" class="secondary" data-scenario="nominal" aria-pressed="false">Nominal</button>
+          <button type="button" class="secondary" data-scenario="fatigue" aria-pressed="false">Fatigue</button>
+          <button type="button" class="secondary" data-scenario="oxygen" aria-pressed="false">Low oxygen</button>
+          <button type="button" class="secondary" data-scenario="combined" aria-pressed="false">Multi-signal</button>
+        </div>
+        <form id="demo-observation" class="form-grid form-two">
+          <div id="demo-inputs" class="form-grid form-two wide"></div>
+          <p id="observation-error" class="error wide" role="alert"></p>
+          <button class="primary wide">Save observation</button>
+        </form>
+        <h3 class="history-title">Session history</h3>
+        <ul id="demo-history" class="list"></ul>
+        <p id="history-empty" class="muted">Saved observations appear here.</p>
+      </section>
+      <section class="panel demo-panel" aria-labelledby="alert-title">
+        <h2 id="alert-title">Alert review</h2>
+        <p id="alert-description" class="muted">Save an observation to see which rules fire.</p>
+        <div id="demo-alerts"></div>
+        <section id="demo-context" class="review-context" hidden aria-labelledby="context-title">
+          <div class="panel-head"><h3 id="context-title">NASA radiation context</h3><button id="load-evidence" class="secondary" type="button">Load NASA reference</button></div>
+          <div id="demo-evidence" aria-live="polite"><p class="muted">Load an ISS DosTel reference window to compare each detector’s readings.</p></div>
+        </section>
+        <form id="demo-followup" class="form-grid" hidden>
+          <label>Follow-up note<textarea name="note" maxlength="500" placeholder="Document the signals you reviewed and what you would verify next." required></textarea></label>
+          <label class="check-line"><input type="checkbox" name="attach" disabled> Attach NASA reference to this note</label>
+          <p id="followup-error" class="error" role="alert"></p>
+          <div class="actions"><button class="primary">Save follow-up</button></div>
+        </form>
+        <div id="demo-followups"></div>
+      </section>
+    </div>
+  </main>
+  <footer class="public-footer"><span>Team AstroByte · NASA Space Apps Challenge 2026</span><a href="https://visualization.osdr.nasa.gov/radlab/gui/data-api/" target="_blank" rel="noopener noreferrer">NASA RadLab documentation ↗</a></footer>
+</body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "retrievedAt": "2026-11-07T17:14:51Z",
+  "sourceUrl": "https://visualization.osdr.nasa.gov/radlab/api/?spacecraft=ISS&instrument=DosTel&timestamp%3E=2022-04-01T23%3A00&timestamp%3C2022-04-02T01%3A05&absorbed_dose_rate&format=json",
+  "capture": "NASA API HTTP 200; original response body, 180 records."
+}

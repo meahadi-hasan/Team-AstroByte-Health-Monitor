@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1017">
+  <title>AstroByte Health Monitor</title>
+  <link rel="icon" href="/mark.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+  <script type="module" src="/hero.js"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <section id="auth" class="auth" hidden>
+    <div class="auth-card">
+      <a class="brand" href="/"><img src="/mark.svg" alt="" width="43" height="43"><span>AstroByte<small>HEALTH MONITOR</small></span></a>
+      <p class="kicker">CREW OPERATIONS</p>
+      <h1>Crew sign in</h1>
+      <p class="muted">Sign in to review crew observations, track alerts, and access historical radiation data.</p>
+      <form id="login-form" class="form-grid">
+        <label>Username<input name="username" autocomplete="username" required maxlength="48"></label>
+        <label>Password<input name="password" type="password" autocomplete="current-password" required maxlength="256"></label>
+        <button class="primary">Sign in</button>
+      </form>
+      <div class="actions auth-links">
+        <a href="/demo.html" class="button">Explore the demo</a>
+        <button type="button" id="demo-button" class="secondary" hidden>Open local training admin</button>
+      </div>
+      <p id="login-error" class="error" role="alert"></p>
+      <footer><a href="/">Back to AstroByte</a><span>Team AstroByte · Rajshahi</span></footer>
+    </div>
+    <figure class="orbital-preview" aria-labelledby="orbital-caption">
+      <div id="orbital-scene" class="orbital-scene">
+        <div class="orbital-planet" aria-hidden="true"></div>
+        <div class="orbital-path orbital-path-inner" aria-hidden="true"></div>
+        <div class="orbital-path orbital-path-outer" aria-hidden="true"><span class="orbital-beacon"></span></div>
+        <dl class="orbital-readings">
+          <div class="orbital-reading orbital-hr">
+            <dt><span aria-hidden="true">HR</span><span class="sr-only">Heart rate</span></dt>
+            <dd><strong id="orbital-hr">72</strong> <small>bpm</small></dd>
+          </div>
+          <div class="orbital-reading orbital-spo2">
+            <dt><span aria-hidden="true">SpO₂</span><span class="sr-only">Oxygen saturation</span></dt>
+            <dd><strong id="orbital-spo2">98</strong> <small>%</small></dd>
+          </div>
+          <div class="orbital-reading orbital-alert" data-level="nominal">
+            <dt>Demo alert</dt>
+            <dd><strong id="orbital-alert">No flags</strong></dd>
+          </div>
+        </dl>
+      </div>
+      <figcaption class="orbital-caption">
+        <span id="orbital-caption">Simulated crew readings</span>
+        <button id="orbital-toggle" class="secondary" type="button" aria-controls="orbital-scene" hidden>Pause preview</button>
+      </figcaption>
+    </figure>
+  </section>
+  <div id="app" class="app" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="#overview"><img src="/mark.svg" alt="" width="42" height="42"><span>AstroByte<small>HEALTH MONITOR</small></span></a>
+      <p class="nav-label">WORKSPACE</p>
+      <nav id="navigation" aria-label="Workspace"></nav>
+      <div class="sidebar-bottom">
+        <span class="status"><span class="dot"></span> Mission workspace</span>
+        <span id="account-label" class="muted"></span>
+        <a class="text-button" href="/">Project home</a>
+        <button type="button" id="sign-out" class="text-button">Sign out</button>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <span class="path"><span class="muted">Mission control</span> <span aria-hidden="true">/</span> <strong id="crumb">Overview</strong></span>
+        <div class="top-controls">
+          <span id="training" class="tag amber" hidden>Training data</span>
+          <label class="crew-picker"><span class="sr-only">Active crew member</span><select id="crew-selector"></select></label>
+          <button type="button" id="top-add" class="primary">＋ Log observation</button>
+        </div>
+      </header>
+      <main id="main" tabindex="-1"><div id="view" aria-busy="true">Loading workspace…</div></main>
+      <footer class="workspace-foot">AstroByte Health Monitor <span>Team AstroByte · NASA Space Apps Challenge 2026</span></footer>
+    </div>
+  </div>
+  <div id="boot" role="status" class="boot">Opening AstroByte…</div>
+  <p id="notice" class="toast" role="status" hidden></p>
+  <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+</body>
+</html>

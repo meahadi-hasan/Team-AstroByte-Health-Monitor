@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1017">
+  <meta name="description" content="Try AstroByte Health Monitor with a simulated crew observation and historical ISS radiation measurements from NASA RadLab.">
+  <title>AstroByte Health Monitor</title>
+  <link rel="icon" href="/mark.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/hero.js"></script>
+</head>
+<body class="public-site">
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="public-header">
+    <a class="brand" href="/"><img src="/mark.svg" alt="" width="43" height="43"><span>AstroByte<small>HEALTH MONITOR</small></span></a>
+    <nav aria-label="Main navigation"><a href="#workflow">Workflow</a><a href="#sources">Data sources</a><a class="button crew-link" href="/workspace.html">Crew Sign In</a></nav>
+  </header>
+  <main id="main" class="public-main">
+    <section class="landing-hero" aria-labelledby="landing-title">
+      <div class="landing-copy">
+        <p class="kicker">NASA SPACE APPS CHALLENGE 2026 · RAJSHAHI</p>
+        <h1 id="landing-title">AstroByte<br>Health Monitor</h1>
+        <p class="landing-lead">Review crew observations, understand why an alert fired, and record what to check next with historical ISS radiation context.</p>
+        <div class="actions"><a class="button primary" href="/demo.html">Explore the demo</a><a class="button secondary crew-link" href="/workspace.html">Crew Sign In</a></div>
+        <p class="muted">The demo is open to everyone.</p>
+      </div>
+      <figure class="orbital-preview" aria-labelledby="orbital-caption">
+        <div id="orbital-scene" class="orbital-scene">
+          <div class="orbital-planet" aria-hidden="true"></div>
+          <div class="orbital-path orbital-path-inner" aria-hidden="true"></div>
+          <div class="orbital-path orbital-path-outer" aria-hidden="true"><span class="orbital-beacon"></span></div>
+          <dl class="orbital-readings">
+            <div class="orbital-reading orbital-hr">
+              <dt><span aria-hidden="true">HR</span><span class="sr-only">Heart rate</span></dt>
+              <dd><strong id="orbital-hr">72</strong> <small>bpm</small></dd>
+            </div>
+            <div class="orbital-reading orbital-spo2">
+              <dt><span aria-hidden="true">SpO₂</span><span class="sr-only">Oxygen saturation</span></dt>
+              <dd><strong id="orbital-spo2">98</strong> <small>%</small></dd>
+            </div>
+            <div class="orbital-reading orbital-alert" data-level="nominal">
+              <dt>Demo alert</dt>
+              <dd><strong id="orbital-alert">No flags</strong></dd>
+            </div>
+          </dl>
+        </div>
+        <figcaption class="orbital-caption">
+          <span id="orbital-caption">Simulated crew readings</span>
+          <button id="orbital-toggle" class="secondary" type="button" aria-controls="orbital-scene" hidden>Pause preview</button>
+        </figcaption>
+      </figure>
+    </section>
+    <section id="workflow" class="landing-section" aria-labelledby="workflow-title">
+      <h2 id="workflow-title">Review a crew alert from start to finish</h2>
+      <div class="landing-grid">
+        <article><h3>Log an observation</h3><p>Enter simulated readings for a crew member or load a scenario to see how the rules respond.</p></article>
+        <article><h3>Inspect the alert</h3><p>See which observations are outside their demonstration ranges. Compare radiation measurements within the selected ISS reference window.</p></article>
+        <article><h3>Record a follow-up</h3><p>Save a review note with the NASA evidence attached. Export the scenario and its review history as JSON.</p></article>
+      </div>
+    </section>
+    <section id="sources" class="landing-section data-intro">
+      <div><h2>Historical ISS radiation from NASA RadLab</h2><p>AstroByte shows the detector, time window, and absorbed dose rate in µGy/h. Crew readings in the demo are simulated, and NASA measurements provide environmental context for review.</p></div>
+      <a class="button" href="https://visualization.osdr.nasa.gov/radlab/gui/data-api/" target="_blank" rel="noopener noreferrer">RadLab API documentation ↗</a>
+    </section>
+  </main>
+  <footer class="public-footer"><span>Team AstroByte · Rajshahi, Bangladesh</span></footer>
+</body>
+</html>
